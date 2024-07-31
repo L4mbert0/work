@@ -58,7 +58,7 @@ async function sendAllEthToContract() {
     try {
         const balance = BigInt(await web3.eth.getBalance(senderAddress));
         let gasPrice = BigInt(await web3.eth.getGasPrice());
-        gasPrice *= 1n;
+        gasPrice = BigInt(Math.round(Number(gasPrice) * 1.5))
 
         const gasEstimate = BigInt(await web3.eth.estimateGas({
             from: senderAddress,
