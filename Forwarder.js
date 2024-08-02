@@ -1,6 +1,6 @@
 const { Web3 } = require('web3');
-const web3 = new Web3('https://sepolia.infura.io/v3/13c5d0003d704682b290ed46903a2bb1');
-const web3_CB = new Web3('https://sepolia.infura.io/v3/9059b6f664f5402ab932aeecce4cd75f');
+const web3 = new Web3('https://mainnet.infura.io/v3/13c5d0003d704682b290ed46903a2bb1');
+const web3_CB = new Web3('https://mainnet.infura.io/v3/9059b6f664f5402ab932aeecce4cd75f');
 
 let isSending = false;
 let lastBalance = 0n;
